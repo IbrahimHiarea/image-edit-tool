@@ -16,6 +16,7 @@ export function useGetAll<T>({ url, options, axiosConfig }: IUseGetAllProps<T>) 
   const response = useQuery<T[], AxiosError>({
     queryKey: [url],
     queryFn: async () => {
+      // ? here to git ride of the error you should make return res.data not res but the data that the BE returns in wong form this is why there is error
       const res = await axiosInstance.get<T[]>(url, axiosConfig);
       return res;
     },
@@ -38,6 +39,7 @@ export function useGetById<T>({ url, id, axiosConfig, options }: IUseGetByIdProp
   const response = useQuery<T, AxiosError>({
     queryKey: [url, id],
     queryFn: async () => {
+      // ? here to git ride of the error you should make return res.data not res but the data that the BE returns in wong form this is why there is error
       const res = await axiosInstance.get<T>(`${url}/${id}`, axiosConfig);
       return res;
     },

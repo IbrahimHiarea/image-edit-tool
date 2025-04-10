@@ -1,12 +1,11 @@
-import { SetStateAction, useCallback } from 'react';
+import { SetStateAction } from 'react';
 import { useCreate } from '@/services/apiHooks';
 import { API_URL } from '@/services/apiUrl';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { IAddCategory, ICategoryDto } from '@/types/categories';
-import { IAddImage } from '@/types/images';
+import { IAddCategory } from '@/types/categories';
 import { FormDialog } from '@/components/sharedComponents/FormDialog';
 
 import { CategoryForm } from './CategoryForm';
