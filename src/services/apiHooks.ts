@@ -1,5 +1,5 @@
 import { QueryKey, useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { serialize } from 'object-to-formdata';
 import { toast } from 'sonner';
 
@@ -16,9 +16,8 @@ export function useGetAll<T>({ url, options, axiosConfig }: IUseGetAllProps<T>) 
   const response = useQuery<T[], AxiosError>({
     queryKey: [url],
     queryFn: async () => {
-      // ? here to git ride of the error you should make return res.data not res but the data that the BE returns in wong form this is why there is error
-      const res = await axiosInstance.get<T[]>(url, axiosConfig);
-      return res;
+      const res: AxiosResponse<T[]> = await axiosInstance.get<T[]>(url, axiosConfig);
+      return res.data ?? res;
     },
     ...options,
     staleTime: 10 * 60 * 1000, // 10 minutes for this specific query
@@ -39,9 +38,9 @@ export function useGetById<T>({ url, id, axiosConfig, options }: IUseGetByIdProp
   const response = useQuery<T, AxiosError>({
     queryKey: [url, id],
     queryFn: async () => {
-      // ? here to git ride of the error you should make return res.data not res but the data that the BE returns in wong form this is why there is error
-      const res = await axiosInstance.get<T>(`${url}/${id}`, axiosConfig);
-      return res;
+      const res: AxiosResponse<T> = await axiosInstance.get<T>(`${url}/${id}`, axiosConfig);
+
+      return res.data ?? (res as any); // ? I have to go with as any otherwise I get ts error
     },
     enabled: !!id,
     ...options,
@@ -49,7 +48,6 @@ export function useGetById<T>({ url, id, axiosConfig, options }: IUseGetByIdProp
   });
   return response;
 }
-
 interface IUseCreateProps<T, U> {
   url: string;
   options?: UseMutationOptions<T, AxiosError, U>;

@@ -43,7 +43,7 @@ export function EditImage({ showModal, setShowModal, imageId, categories }: IEdi
     defaultValues: {
       name: '',
       categoryId: 0,
-      image: null,
+      image: undefined,
     },
   });
 
@@ -53,7 +53,7 @@ export function EditImage({ showModal, setShowModal, imageId, categories }: IEdi
       reset({
         name: imageItem?.name!,
         categoryId: imageItem?.categoryId!,
-        image: null,
+        image: undefined,
       });
     }
   }, [imageItem, reset]);
