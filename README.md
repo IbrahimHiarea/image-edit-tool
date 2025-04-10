@@ -29,7 +29,6 @@ A full-featured image management and annotation application built with **Next.js
   - Material UI
   - React Query
   - React Konva
-  - React Window (virtualized gallery)
 
 ## 📸 Screenshots
 
@@ -46,7 +45,6 @@ _(Include screenshots here if available)_
 
 ```bash
 git clone https://github.com/yourusername/image-annotation-app.git
-cd image-annotation-app
 npm install
 ```
 
