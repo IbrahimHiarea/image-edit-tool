@@ -1,9 +1,11 @@
 'use client';
 
 import * as React from 'react';
+import { InputAdornment } from '@mui/material';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import { DataGrid, GridColDef, GridPaginationModel, GridRowsProp, GridToolbar } from '@mui/x-data-grid';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 
 interface AppDataGridProps<T> {
   columns: GridColDef[];
@@ -64,7 +66,17 @@ export function AppDataGrid<T>({
         fullWidth
         value={searchQuery}
         onChange={(e) => handleSearch(e.target.value)}
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, height: '40px', width: '350px' }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <MagnifyingGlass size={20} weight="bold" />
+            </InputAdornment>
+          ),
+        }}
+        inputProps={{
+          style: { padding: '10px 0px 10px 10px' },
+        }}
       />
       <DataGrid
         rows={filteredRows as GridRowsProp}

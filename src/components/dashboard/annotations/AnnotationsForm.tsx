@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Grid, IconButton, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { ArrowUUpLeft, Circle, Hand, PaintBrush, Rectangle, Square } from '@phosphor-icons/react';
+import { Box, Grid, IconButton, Stack, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { ArrowUUpLeft, Circle, Hand, Image, PaintBrush, Rectangle, Square } from '@phosphor-icons/react';
 import { Control, UseFormSetValue, useWatch } from 'react-hook-form';
 
 import { AnnotationCoordinates, AnnotationType } from '@/types/annotations';
@@ -121,7 +121,7 @@ export function AnnotationsForm({ control, images, setValue }: ImageFormProps) {
 
       <Grid item xs={12}>
         <Stack spacing={2} sx={{ border: '1px solid #ccc', p: 2 }}>
-          {selectedImage && (
+          {selectedImage ? (
             <DrawingCanvas
               selectedImage={selectedImage}
               color={color}
@@ -130,6 +130,16 @@ export function AnnotationsForm({ control, images, setValue }: ImageFormProps) {
               tool={tool}
               type={type}
             />
+          ) : (
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+              <Box sx={{ mb: 2 }}>
+                <Image size={48} weight="thin" />
+              </Box>
+
+              <Typography variant="h6" component="h2" gutterBottom>
+                Select an Image
+              </Typography>
+            </Box>
           )}
         </Stack>
       </Grid>

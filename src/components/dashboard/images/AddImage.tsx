@@ -20,11 +20,12 @@ interface IAddImageProps {
 export const ImageSchema = z.object({
   name: z.string().min(1, { message: 'Name is required' }),
   categoryId: z.number().gt(0, { message: 'Category is required' }),
-  image: z.instanceof(File, { message: 'Image file is required' }).nullable(),
+  image: z.union([z.instanceof(File), z.null()]).refine((file) => file instanceof File, {
+    message: 'Image file is required',
+  }),
 });
 
 export type ImageFormValues = z.infer<typeof ImageSchema>;
-
 export function AddImage({ showModal, setShowModal, categories }: IAddImageProps) {
   // *@ Component States
   const {
@@ -37,7 +38,7 @@ export function AddImage({ showModal, setShowModal, categories }: IAddImageProps
     defaultValues: {
       name: '',
       categoryId: 0,
-      image: null,
+      image: undefined,
     },
   });
 
