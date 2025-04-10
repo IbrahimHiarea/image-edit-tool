@@ -6,6 +6,7 @@ import { API_URL } from '@/services/apiUrl';
 import { IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GridColDef } from '@mui/x-data-grid';
+import { Eye } from '@phosphor-icons/react';
 import { Pencil, Trash } from '@phosphor-icons/react/dist/ssr';
 
 import { IAnnotationDto } from '@/types/annotations';
@@ -13,6 +14,7 @@ import { IImageDto } from '@/types/images';
 import { AppDialog } from '@/components/sharedComponents/AppDialog';
 
 import { AddAnnotations } from './AddAnnotations';
+import { AnnotationDetails } from './AnnotationDetails';
 import { EditAnnotations } from './EditAnnotations';
 
 export function useAnnotations() {
@@ -22,6 +24,7 @@ export function useAnnotations() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   // *@ Component Handlers
   const handleAdd = useCallback(() => {
@@ -33,6 +36,10 @@ export function useAnnotations() {
   }, []);
   const handleDelete = useCallback((id: number) => {
     setShowDeleteModal(true);
+    setRowId(id);
+  }, []);
+  const handleDetails = useCallback((id: number) => {
+    setShowDetailsModal(true);
     setRowId(id);
   }, []);
 
@@ -137,6 +144,9 @@ export function useAnnotations() {
       minWidth: 200,
       renderCell: (params) => (
         <>
+          <IconButton color="primary" title="Details" onClick={() => handleDetails(params.row.id)}>
+            <Eye />
+          </IconButton>
           <IconButton color="secondary" title="Edit" onClick={() => handleEdit(params.row.id)}>
             <Pencil />
           </IconButton>
@@ -159,6 +169,9 @@ export function useAnnotations() {
           showModal={showEditModal}
           setShowModal={setShowEditModal}
         />
+      )}
+      {showDetailsModal && (
+        <AnnotationDetails annotationId={rowId} showModal={showDetailsModal} setShowModal={setShowDetailsModal} />
       )}
       {showDeleteModal && (
         <AppDialog

@@ -6,12 +6,13 @@ import { API_URL } from '@/services/apiUrl';
 import { Avatar, IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GridColDef } from '@mui/x-data-grid';
-import { Pencil, Trash } from '@phosphor-icons/react';
+import { Eye, Pencil, Trash } from '@phosphor-icons/react';
 
 import { ICategoryDto } from '@/types/categories';
 import { AppDialog } from '@/components/sharedComponents/AppDialog';
 
 import { AddCategory } from './AddCategory';
+import { CategoryDetails } from './CategoryDetails';
 import { EditCategory } from './EditCategory';
 
 export function useCategories() {
@@ -21,6 +22,7 @@ export function useCategories() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   // *@ Component Handlers
   const handleAdd = useCallback(() => {
@@ -32,6 +34,10 @@ export function useCategories() {
   }, []);
   const handleDelete = useCallback((id: number) => {
     setShowDeleteModal(true);
+    setRowId(id);
+  }, []);
+  const handleDetails = useCallback((id: number) => {
+    setShowDetailsModal(true);
     setRowId(id);
   }, []);
 
@@ -88,6 +94,9 @@ export function useCategories() {
       width: 300,
       renderCell: (params) => (
         <>
+          <IconButton color="primary" title="Details" onClick={() => handleDetails(params.row.id)}>
+            <Eye />
+          </IconButton>
           <IconButton color="secondary" title="Edit" onClick={() => handleEdit(params.row.id)}>
             <Pencil />
           </IconButton>
@@ -104,6 +113,9 @@ export function useCategories() {
     <>
       {showAddModal && <AddCategory showModal={showAddModal} setShowModal={setShowAddModal} />}
       {showEditModal && <EditCategory categoryId={rowId} showModal={showEditModal} setShowModal={setShowEditModal} />}
+      {showDetailsModal && (
+        <CategoryDetails categoryId={rowId} showModal={showDetailsModal} setShowModal={setShowDetailsModal} />
+      )}
       {showDeleteModal && (
         <AppDialog
           title="Delete Category"

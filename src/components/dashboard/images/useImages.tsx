@@ -6,6 +6,7 @@ import { API_URL } from '@/services/apiUrl';
 import { Avatar, IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { GridColDef } from '@mui/x-data-grid';
+import { Eye } from '@phosphor-icons/react';
 import { Pencil, Trash } from '@phosphor-icons/react/dist/ssr';
 
 import { ICategoryDto } from '@/types/categories';
@@ -14,6 +15,7 @@ import { AppDialog } from '@/components/sharedComponents/AppDialog';
 
 import { AddImage } from './AddImage';
 import { EditImage } from './EditImage';
+import { ImageDetails } from './ImageDetails';
 
 export function useImages() {
   // *@ Component States
@@ -22,6 +24,7 @@ export function useImages() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   // *@ Component Handlers
   const handleAdd = useCallback(() => {
@@ -33,6 +36,10 @@ export function useImages() {
   }, []);
   const handleDelete = useCallback((id: number) => {
     setShowDeleteModal(true);
+    setRowId(id);
+  }, []);
+  const handleDetails = useCallback((id: number) => {
+    setShowDetailsModal(true);
     setRowId(id);
   }, []);
 
@@ -138,6 +145,9 @@ export function useImages() {
       width: 200,
       renderCell: (params) => (
         <>
+          <IconButton color="primary" title="Details" onClick={() => handleDetails(params.row.id)}>
+            <Eye />
+          </IconButton>
           <IconButton color="secondary" title="Edit" onClick={() => handleEdit(params.row.id)}>
             <Pencil />
           </IconButton>
@@ -155,6 +165,9 @@ export function useImages() {
       {showAddModal && <AddImage categories={categories} showModal={showAddModal} setShowModal={setShowAddModal} />}
       {showEditModal && (
         <EditImage imageId={rowId} categories={categories} showModal={showEditModal} setShowModal={setShowEditModal} />
+      )}
+      {showDetailsModal && (
+        <ImageDetails imageId={rowId} showModal={showDetailsModal} setShowModal={setShowDetailsModal} />
       )}
       {showDeleteModal && (
         <AppDialog

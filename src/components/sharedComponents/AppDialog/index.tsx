@@ -6,21 +6,24 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton, // Added IconButton
   styled,
 } from '@mui/material';
 import type { DialogProps } from '@mui/material';
+import { X } from '@phosphor-icons/react'; // Import X icon
 
 interface AppDialogProps extends DialogProps {
   title: string;
   description?: string;
-  onConfirm: () => void;
   onClose: () => void;
+  onConfirm?: () => void;
   confirmText?: string;
   cancelText?: string;
   confirmColor?: 'primary' | 'secondary' | 'error' | 'success' | 'warning';
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   children?: React.ReactNode;
   isLoading?: boolean;
+  withButtons?: boolean;
 }
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
@@ -43,6 +46,7 @@ export function AppDialog({
   maxWidth = 'md',
   children,
   isLoading = false,
+  withButtons = true,
   ...props
 }: AppDialogProps) {
   return (
@@ -54,8 +58,19 @@ export function AppDialog({
       maxWidth={maxWidth}
       {...props}
     >
-      <DialogTitle id="alert-dialog-title" variant="h6">
+      <DialogTitle
+        id="alert-dialog-title"
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingRight: 2,
+        }}
+      >
         {title}
+        <IconButton onClick={onClose} aria-label="close" sx={{ marginLeft: 'auto' }}>
+          <X size={24} />
+        </IconButton>
       </DialogTitle>
 
       <DialogContent>
@@ -63,23 +78,25 @@ export function AppDialog({
         {children}
       </DialogContent>
 
-      <DialogActions sx={{ padding: 2 }}>
-        <Button onClick={onClose} variant="text" color="inherit">
-          {cancelText}
-        </Button>
-        <Button
-          onClick={async () => {
-            await onConfirm();
-            onClose();
-          }}
-          variant="contained"
-          color={confirmColor}
-          autoFocus
-          disabled={isLoading}
-        >
-          {isLoading ? <CircularProgress size={24} color="inherit" /> : confirmText}
-        </Button>
-      </DialogActions>
+      {withButtons && (
+        <DialogActions sx={{ padding: 2 }}>
+          <Button onClick={onClose} variant="text" color="inherit">
+            {cancelText}
+          </Button>
+          <Button
+            onClick={async () => {
+              onConfirm && (await onConfirm());
+              onClose();
+            }}
+            variant="contained"
+            color={confirmColor}
+            autoFocus
+            disabled={isLoading}
+          >
+            {isLoading ? <CircularProgress size={24} color="inherit" /> : confirmText}
+          </Button>
+        </DialogActions>
+      )}
     </StyledDialog>
   );
 }
