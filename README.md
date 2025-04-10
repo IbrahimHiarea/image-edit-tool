@@ -1,90 +1,115 @@
-## [Devias Kit - React](https://material-kit-react.devias.io/)
+# 🖼️ Image Annotation App
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+A full-featured image management and annotation application built with **Next.js App Router**, **Material UI**, **React Query**, and **React Konva**. Users can upload, view, and delete images, manage categories, filter images by metadata, and annotate images using drawing tools.
 
-[![Devias Kit - React](https://github.com/devias-io/material-kit-react/blob/main/public/assets/thumbnail.png)](https://material-kit-react.devias.io/)
+## 🚀 Features
 
-> Free React Admin Dashboard made with [MUI's](https://mui.com) components, [React](https://reactjs.org) and of course [Next.js](https://github.com/vercel/next.js) to boost your app development process!
+- 📁 **Image Management**
 
-## Pages 
+  - Upload (simulated)
+  - View gallery with details
+  - Delete with confirmation
 
-- [Dashboard](https://material-kit-react.devias.io)
-- [Customers](https://material-kit-react.devias.io/dashboard/customers)
-- [Integrations](https://material-kit-react.devias.io/dashboard/integrations)
-- [Settings](https://material-kit-react.devias.io/dashboard/settings)
-- [Account](https://material-kit-react.devias.io/dashboard/account)
-- [Sign In](https://material-kit-react.devias.io/auth/sign-in)
-- [Sign Up](https://material-kit-react.devias.io/auth/sign-up)
-- [Reset Password](https://material-kit-react.devias.io/auth/reset-password)
+- 🏷️ **Category Management**
 
-## Free Figma Community File
+  - CRUD for image categories
 
-- [Duplicate File](https://www.figma.com/file/b3L1Np4RYiicZAOMopHNkm/Devias-Dashboard-Design-Library-Kit)
+- 🔍 **Filtering**
 
-## Upgrade to PRO Version
+  - Filter images by name, metadata, and category
 
-We also have a pro version of this product which bundles even more pages and components if you want
-to save more time and design efforts :)
+- 🖊️ **Image Annotation**
 
-| Free Version (this one)  | [Devias Kit Pro](https://mui.com/store/items/devias-kit-pro/)                |
-| ------------------------ | :--------------------------------------------------------------------------- |
-| **8** Pages              | **80+** Pages                                                                |
-| ✔ Custom Authentication  | ✔ Authentication with **Amplify**, **Auth0**, **Firebase** and **Supabase**  |
-| -                        | ✔ Vite Version                                                               |
-| -                        | ✔ Dark Mode Support                                                          |
-| -                        | ✔ Complete Users Flows                                                       |
-| -                        | ✔ Premium Technical Support                                                  |
+  - Draw rectangles using React Konva
+  - Select annotation colors
+  - Save, view, and delete annotations
 
-## Quick start
+- ⚙️ **Tech Stack**
+  - Next.js (App Router)
+  - Material UI
+  - React Query
+  - React Konva
+  - React Window (virtualized gallery)
 
-- Clone the repo: `git clone https://github.com/devias-io/material-kit-react.git`
-- Make sure your Node.js and npm versions are up to date
-- Install dependencies: `npm install` or `yarn`
-- Start the server: `npm run dev` or `yarn dev`
-- Open browser: `http://localhost:3000`
+## 📸 Screenshots
 
-## File Structure
+_(Include screenshots here if available)_
 
-Within the download you'll find the following directories and files:
+## 📦 Getting Started
 
-```
-┌── .editorconfig
-├── .eslintrc.js
-├── .gitignore
-├── CHANGELOG.md
-├── LICENSE.md
-├── next-env.d.ts
-├── next.config.js
-├── package.json
-├── README.md
-├── tsconfig.json
-├── public
-└── src
-	├── components
-	├── contexts
-	├── hooks
-	├── lib
-	├── styles
-	├── types
-	└── app
-		├── layout.tsx
-		├── page.tsx
-		├── auth
-		└── dashboard
+### Prerequisites
+
+- Node.js ≥ 18
+- npm or yarn
+
+### Installation
+
+```bash
+git clone https://github.com/yourusername/image-annotation-app.git
+cd image-annotation-app
+npm install
 ```
 
-## Resources
+### Run the App
 
-- More freebies like this one: https://devias.io
+```bash
+npm run dev
+```
 
-## Reporting Issues:
+App will be available at `http://localhost:3000`.
 
-- [Github Issues Page](https://github.com/devias-io/material-kit-react/issues)
+## 🌐 API
 
-## License
+Using a [JSON Placeholder API](https://my-json-server.typicode.com/MostafaKMilly/demo). Data is **not persistent**, so API responses are simulated as needed.
 
-- Licensed under [MIT](https://github.com/devias-io/material-kit-react/blob/main/LICENSE.md)
+## 🧪 Simulated API Endpoints
 
-## Contact Us
+- `GET /categories`, `POST /categories`, `PUT /categories/:id`, `DELETE /categories/:id`
+- `GET /images`, `POST /images`, `PUT /images/:id`, `DELETE /images/:id`
+- `GET /annotations`, `POST /annotations`, `PUT /annotations/:id`, `DELETE /annotations/:id`
+- `GET /images/:imageId/annotations`
 
-- Email Us: support@deviasio.zendesk.com
+## 📁 Project Structure
+
+```
+/
+├─ app/
+│  ├─ images/
+│  ├─ categories/
+│  ├─ annotations/
+├─ components/
+├─ hooks/
+├─ utils/
+├─ services/
+├─ styles/
+└─ public/
+```
+
+## 💡 Notes
+
+- This app simulates image uploads and annotations—no actual backend file storage.
+- All image metadata, categories, and annotations are mocked or persisted temporarily in local state or cache.
+
+## 📋 Assignment Scope
+
+This project was built as part of a frontend technical test. See [Technical Test PDF](./Technical%20Test%20Assignment%202.pdf) for full details.
+
+## 🧠 Topics
+
+```
+nextjs
+react
+material-ui
+react-query
+react-konva
+image-annotation
+frontend-assignment
+image-gallery
+image-upload
+categories
+annotations
+```
+
+## 📫 Contact
+
+Feel free to reach out for any questions or improvements!
